@@ -68,6 +68,12 @@ network:
 ```
 sudo netplan apply
 ```
+### 2.6. 运行依赖软件包
+- ipvsadm：kube-prox 网络模式设置ipvs模式，ipvsadm工具可以查看网络规则。
+- conntrack：这个包 Containerd 需要。
+```
+sudo apt-get -y install ipvsadm conntrack lrzsz
+```
 ## 3. 安装容器运行时
 容器运行时(CRI - Container Runtime Interface) 英译容器运行时接口，所有的Pod都运行在容器里，kubelet负责与CRI交互管理Pod的生命周期，启动、停止、监控容器。
 
@@ -88,3 +94,65 @@ sudo sysctl --system
 sysctl net.ipv4.ip_forward
 ```
 ### 3.2. 安装 Containerd
+- **[下载](https://github.com/containerd/containerd/releases)：相应版本，并解压。**
+```
+tar zxvf containerd-2.0.2-linux-amd64.tar.gz && cd bin
+```
+- **安装**
+```
+sudo install ./* -o root -g root -m 0755 /usr/local/bin/
+```
+- **创建Systemd服务文件：`/usr/lib/systemd/system/containerd.service`**
+```
+[Unit]
+Description=containerd container runtime
+Documentation=https://containerd.io
+After=network.target local-fs.target dbus.service
+
+[Service]
+ExecStartPre=-/sbin/modprobe overlay
+ExecStart=/usr/local/bin/containerd
+
+Type=notify
+Delegate=yes
+KillMode=process
+Restart=always
+RestartSec=5
+
+# Having non-zero Limit*s causes performance problems due to accounting overhead
+# in the kernel. We recommend using cgroups to do container-local accounting.
+LimitNPROC=infinity
+LimitCORE=infinity
+
+# Comment TasksMax if your systemd version does not supports it.
+# Only systemd 226 and above support this version.
+TasksMax=infinity
+OOMScoreAdjust=-999
+
+[Install]
+WantedBy=multi-user.target
+```
+- **启动服务**
+```
+sudo systemctl enable container
+sudo systemctl enable containerd.service --now
+```
+- **查看日志**
+```
+journalctl --unit containerd.service --no-pager
+```
+### 3.3. 安装runc
+runc 是管理容器的命令行工具。
+- **[下载](https://github.com/opencontainers/runc/releases)** 安装。
+```
+sudo install runc.amd64 -o root -g root -m 0755 /usr/local/bin/runc
+```
+### 3.4. 安装CNI插件
+CNI是容器的网络接口插件，用来配置Linux容器中的网络接口。
+- **[下载](https://github.com/containernetworking/plugins/releases)** 安装。
+```
+sudo mkdir -pv /opt/cni/bin
+sudo tar zxvf cni-plugins-linux-amd64-v1.6.2.tgz -C /opt/cni/bin/
+```
+### 3.5. 配置 Containerd
+- 配置 cgroup为Systemd
