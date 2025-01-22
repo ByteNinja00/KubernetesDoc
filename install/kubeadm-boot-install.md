@@ -180,7 +180,6 @@ sudo systemctl restart containerd.service
 - **kubelet：** 因为控制平面的组件也是容器运行，所以kubelet由Systemd管理，kubelet是与容器运行时交互的组件。
 - **kubectl：** 用于管理集群的客户端命令行工具，API调用细节的封装。
 
-### 4.1. 添加APT存储库
 1. **安装kubernetes存储库所需要的包。**
 ```
 sudo apt-get install -y apt-transport-https ca-certificates curl gpg
