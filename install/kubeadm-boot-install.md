@@ -1,4 +1,4 @@
-# kubeadm 安装集群
+# kubeadm 安##装集群
 因为本文目前用于测试学习kubernetes集群，并未为其进行 **HA(High Availability)** 和 **LB(Load Balancing)** 扩展。
 > **注：本文所有操作均在 Ubuntu 24.04 LTS 发行版之上操作。**
 
@@ -173,4 +173,30 @@ containerd config default | sudo tee /etc/containerd/config.toml
 - **重启服务**
 ```
 sudo systemctl restart containerd.service
+```
+## 4. 安装kubeadm
+以下需要安装这几个可执行文件：
+- **kubeadm：** 用于创建集群、重置、清理集群等一些操作的集群外的操作工具。
+- **kubelet：** 因为控制平面的组件也是容器运行，所以kubelet由Systemd管理，kubelet是与容器运行时交互的组件。
+- **kubectl：** 用于管理集群的客户端命令行工具，API调用细节的封装。
+
+### 4.1. 添加APT存储库
+1. **安装kubernetes存储库所需要的包。**
+```
+sudo apt-get install -y apt-transport-https ca-certificates curl gpg
+```
+2. **下载用于 Kubernetes 软件包仓库的公共签名密钥。**
+```
+sudo mkdir -p -m 755 /etc/apt/keyrings
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+```
+3. **添加 Kubernetes apt 仓库。**
+```
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+```
+4. **更新 apt 包索引，安装 kubelet、kubeadm 和 kubectl，并锁定其版本：**
+```
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
 ```
