@@ -200,3 +200,7 @@ sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
 ## 5. 初始化安装集群
+本文是在线安装，安装集群的时候会连接到 `registry.k8s.io` 下需要集群所需要的容器镜像，国内网络需要科学上网，或者用aliyun的镜像站点。
+
+这里推荐使用配置文件的方式进行安装，更利于操作审记。
+
