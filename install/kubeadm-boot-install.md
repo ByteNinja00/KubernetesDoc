@@ -204,3 +204,9 @@ sudo apt-mark hold kubelet kubeadm kubectl
 
 这里推荐使用配置文件的方式进行安装，更利于操作审记。
 
+### 5.1. 生成默认配置文件
+```
+kubeadm config print init-defaults > init-config.yaml
+```
+### 5.2. 修改配置文件
+参考：**[init-config.yaml](/install/yaml/init-config.yaml)**
