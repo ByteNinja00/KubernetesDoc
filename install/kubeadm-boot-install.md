@@ -1,4 +1,4 @@
-# kubeadm 安##装集群
+# kubeadm 安装集群
 因为本文目前用于测试学习kubernetes集群，并未为其进行 **HA(High Availability)** 和 **LB(Load Balancing)** 扩展。
 > **注：本文所有操作均在 Ubuntu 24.04 LTS 发行版之上操作。**
 
