@@ -25,7 +25,7 @@ ip addr show
 sudo cat /sys/class/dmi/id/product_uuid
 ```
 ### 2.3. 关闭交换分区
-虽然官方允计使用交换分区，但是交换分区是把磁盘存储的一部份空间，当作内存空间交换。CPU在进行数据访问时性能肯定大下降，所以最好关闭。
+虽然官方允计使用交换分区，但是交换分区是把磁盘存储的一部份空间，当作内存空间交换。CPU在进行数据访问时性能肯定大大下降，所以最好关闭。
 - 查看系统当前是否有交换分区挂载：
 ```
 sudo swapon --show
@@ -68,3 +68,23 @@ network:
 ```
 sudo netplan apply
 ```
+## 3. 安装容器运行时
+容器运行时(CRI - Container Runtime Interface) 英译容器运行时接口，所有的Pod都运行在容器里，kubelet负责与CRI交互管理Pod的生命周期，启动、停止、监控容器。
+
+Kubernetes支持多个发行版的容器运行时，包括近些年来非常流行的Docker引擎，但是本文使用的容器运行时选择 **Containerd**。
+### 3.1. 启用网络转发
+*net.ipv4.ip_forward* 负责主机网络在不同网络接口之间转发。
+```
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.ipv4.ip_forward = 1
+EOF
+```
+- **应用生效**
+```
+sudo sysctl --system
+```
+- **验证是否生效**
+```
+sysctl net.ipv4.ip_forward
+```
+### 3.2. 安装 Containerd
