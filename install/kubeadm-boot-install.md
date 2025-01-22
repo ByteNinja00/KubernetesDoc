@@ -155,4 +155,22 @@ sudo mkdir -pv /opt/cni/bin
 sudo tar zxvf cni-plugins-linux-amd64-v1.6.2.tgz -C /opt/cni/bin/
 ```
 ### 3.5. 配置 Containerd
-- 配置 cgroup为Systemd
+这里有个坑，应该是官网没更新，如果Containerd版本是 **2.x** 及以上。使用的是[V3版本配置文件](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)。
+- **首先生成默认配置文件**
+```
+containerd config default | sudo tee /etc/containerd/config.toml
+```
+- **修改cgroup驱动为Systemd**
+```
+[plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
+  SystemdCgroup = true
+```
+- **修改pause容器**
+```
+[plugins.'io.containerd.cri.v1.images'.pinned_images]
+      sandbox = 'registry.k8s.io/pause:3.10'
+```
+- **重启服务**
+```
+sudo systemctl restart containerd.service
+```
