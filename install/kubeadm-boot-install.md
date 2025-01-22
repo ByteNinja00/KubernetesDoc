@@ -74,6 +74,16 @@ sudo netplan apply
 ```
 sudo apt-get -y install ipvsadm conntrack lrzsz
 ```
+### 2.7. 配置主机名解析
+配置主机名相互解析 `/etc/hosts`
+```
+sudo tee /etc/hosts <<EOF
+10.224.2.10 k8s-master
+10.224.2.11 k8s-node
+EOF
+```
+> **控制平面和工作节点都要配置**
+
 ## 3. 安装容器运行时
 容器运行时(CRI - Container Runtime Interface) 英译容器运行时接口，所有的Pod都运行在容器里，kubelet负责与CRI交互管理Pod的生命周期，启动、停止、监控容器。
 
