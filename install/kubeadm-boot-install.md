@@ -1,5 +1,6 @@
 # kubeadm 安装集群
 因为本文目前用于测试学习kubernetes集群，并未为其进行 **HA(High Availability)** 和 **LB(Load Balancing)** 扩展。
+> **注：本文所有操作均在 Ubuntu 24.04 LTS 发行版之上操作。**
 
 ## 1. 集群主机资源清单：
 
@@ -13,13 +14,57 @@
 
 关于集群主机内核调优的sysctl参数，取决于具体恰当与否，官网 **[关于systctl参数说明](https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/sysctl-cluster/)**。
 
-### 检查MAC集群主机MAC地址
+### 2.1. 检查MAC集群主机MAC地址
 如果是用的虚拟机克隆出来的主机，有可能会有MAC地址重复，如：KVM虚拟机配置文件复制进行克隆的就会发生这种情况。
 ```
 ip addr show
 ```
-### 检查主机UUID
+### 2.2. 检查主机UUID
 同样如此如果是因为复制虚拟机配置文件克隆出来的主机UUID也会重复。
 ```
 sudo cat /sys/class/dmi/id/product_uuid
+```
+### 2.3. 关闭交换分区
+虽然官方允计使用交换分区，但是交换分区是把磁盘存储的一部份空间，当作内存空间交换。CPU在进行数据访问时性能肯定大下降，所以最好关闭。
+- 查看系统当前是否有交换分区挂载：
+```
+sudo swapon --show
+```
+- 临时关闭
+```
+sudo swapoff -a
+```
+- 注释己挂的分区 `/etc/fstab`
+```
+#/swap.img none swap sw 0 0
+```
+### 2.4. 设置主机名
+- 控制平面主机
+```
+sudo hostnamectl set-hostname k8s-master
+```
+- 工作节点主机
+```
+sudo hostnamectl set-hostname k8s-node
+```
+### 2.5. 网络地址设置
+以下网络IP地址在 **k8s-master** 主机上配置，在设置工作节点主机网络替换相应规划的IP地址。
+
+配置文件地址：`/etc/netplan/50-cloud-init.yaml`
+```
+network:
+    ethernets:
+        ens33:
+            dhcp4: false
+            addresses: [10.224.2.10/24]
+            routes:
+              - to: default
+                via: 10.224.2.2
+            nameservers:
+              addresses: [10.224.2.2,223.5.5.5]
+    version: 2
+```
+**更新网络配置**
+```
+sudo netplan apply
 ```
