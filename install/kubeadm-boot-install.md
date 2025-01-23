@@ -286,7 +286,9 @@ kubectl create -f custom-resources.yaml
 ### 5.5. 加入工作节点
 在初始化集群[日志](/install/logs/init-cluster.log)输出当中，有一串: 
 ```
-kubeadm join 10.224.2.10:6443 --token 249b5c.d67582bf20149bba \
+sudo kubeadm join 10.224.2.10:6443 --token 249b5c.d67582bf20149bba \
 	--discovery-token-ca-cert-hash sha256:338a212d82d9388b7cb7f875a3295a187010c41e64e7dfbf2684cf39aecb2737
 ```
 默认过期时间为24小时。24小时之后要重新生成token值。
+
+加入集群过程 **[日志](/install/logs/join-cluster.log)**

@@ -1,0 +1,70 @@
+I0123 10:41:19.986890    7715 join.go:421] [preflight] found NodeName empty; using OS hostname as NodeName
+I0123 10:41:19.987354    7715 initconfiguration.go:123] detected and using CRI socket: unix:///var/run/containerd/containerd.sock
+[preflight] Running pre-flight checks
+I0123 10:41:19.987479    7715 preflight.go:93] [preflight] Running general checks
+I0123 10:41:20.005407    7715 checks.go:278] validating the existence of file /etc/kubernetes/kubelet.conf
+I0123 10:41:20.005444    7715 checks.go:278] validating the existence of file /etc/kubernetes/bootstrap-kubelet.conf
+I0123 10:41:20.005472    7715 checks.go:102] validating the container runtime
+I0123 10:41:20.006734    7715 checks.go:637] validating whether swap is enabled or not
+I0123 10:41:20.006781    7715 checks.go:368] validating the presence of executable ip
+I0123 10:41:20.006831    7715 checks.go:368] validating the presence of executable iptables
+I0123 10:41:20.006871    7715 checks.go:368] validating the presence of executable mount
+I0123 10:41:20.006885    7715 checks.go:368] validating the presence of executable nsenter
+I0123 10:41:20.006911    7715 checks.go:368] validating the presence of executable ethtool
+I0123 10:41:20.006929    7715 checks.go:368] validating the presence of executable tc
+I0123 10:41:20.006965    7715 checks.go:368] validating the presence of executable touch
+I0123 10:41:20.006981    7715 checks.go:514] running all checks
+I0123 10:41:20.025821    7715 checks.go:399] checking whether the given node name is valid and reachable using net.LookupHost
+I0123 10:41:20.026118    7715 checks.go:603] validating kubelet version
+I0123 10:41:20.077918    7715 checks.go:128] validating if the "kubelet" service is enabled and active
+I0123 10:41:20.100002    7715 checks.go:201] validating availability of port 10250
+I0123 10:41:20.100463    7715 checks.go:278] validating the existence of file /etc/kubernetes/pki/ca.crt
+I0123 10:41:20.100555    7715 checks.go:428] validating if the connectivity type is via proxy or direct
+I0123 10:41:20.100640    7715 checks.go:327] validating the contents of file /proc/sys/net/ipv4/ip_forward
+I0123 10:41:20.100824    7715 join.go:551] [preflight] Discovering cluster-info
+I0123 10:41:20.100882    7715 token.go:72] [discovery] Created cluster-info discovery client, requesting info from "10.224.2.10:6443"
+I0123 10:41:20.101896    7715 envvar.go:172] "Feature gate default state" feature="WatchListClient" enabled=false
+I0123 10:41:20.101986    7715 envvar.go:172] "Feature gate default state" feature="ClientsAllowCBOR" enabled=false
+I0123 10:41:20.101999    7715 envvar.go:172] "Feature gate default state" feature="ClientsPreferCBOR" enabled=false
+I0123 10:41:20.102024    7715 envvar.go:172] "Feature gate default state" feature="InformerResourceVersion" enabled=false
+I0123 10:41:20.120222    7715 token.go:230] [discovery] Waiting for the cluster-info ConfigMap to receive a JWS signature for token ID "249b5c"
+I0123 10:41:20.134233    7715 token.go:127] [discovery] Requesting info from "10.224.2.10:6443" again to validate TLS against the pinned public key
+I0123 10:41:20.134592    7715 token.go:230] [discovery] Waiting for the cluster-info ConfigMap to receive a JWS signature for token ID "249b5c"
+I0123 10:41:20.141430    7715 token.go:150] [discovery] Cluster info signature and contents are valid and TLS certificate validates against pinned roots, will use API Server "10.224.2.10:6443"
+I0123 10:41:20.141479    7715 discovery.go:53] [discovery] Using provided TLSBootstrapToken as authentication credentials for the join process
+I0123 10:41:20.141526    7715 join.go:565] [preflight] Fetching init configuration
+I0123 10:41:20.141578    7715 join.go:652] [preflight] Retrieving KubeConfig objects
+[preflight] Reading configuration from the "kubeadm-config" ConfigMap in namespace "kube-system"...
+[preflight] Use 'kubeadm init phase upload-config --config your-config.yaml' to re-upload it.
+I0123 10:41:20.150437    7715 kubeproxy.go:55] attempting to download the KubeProxyConfiguration from ConfigMap "kube-proxy"
+I0123 10:41:20.155811    7715 kubelet.go:74] attempting to download the KubeletConfiguration from ConfigMap "kubelet-config"
+I0123 10:41:20.160370    7715 initconfiguration.go:115] skip CRI socket detection, fill with the default CRI socket unix:///var/run/containerd/containerd.sock
+I0123 10:41:20.160667    7715 interface.go:432] Looking for default routes with IPv4 addresses
+I0123 10:41:20.160675    7715 interface.go:437] Default route transits interface "ens33"
+I0123 10:41:20.160883    7715 interface.go:209] Interface ens33 is up
+I0123 10:41:20.160920    7715 interface.go:257] Interface "ens33" has 2 addresses :[10.224.2.11/24 fe80::20c:29ff:fedd:3bcc/64].
+I0123 10:41:20.160930    7715 interface.go:224] Checking addr  10.224.2.11/24.
+I0123 10:41:20.160972    7715 interface.go:231] IP found 10.224.2.11
+I0123 10:41:20.160984    7715 interface.go:263] Found valid IPv4 address 10.224.2.11 for interface "ens33".
+I0123 10:41:20.160990    7715 interface.go:443] Found active IP 10.224.2.11 
+I0123 10:41:20.161027    7715 preflight.go:104] [preflight] Running configuration dependant checks
+I0123 10:41:20.161036    7715 controlplaneprepare.go:225] [download-certs] Skipping certs download
+I0123 10:41:20.161291    7715 kubelet.go:183] [kubelet-start] writing bootstrap kubelet config file at /etc/kubernetes/bootstrap-kubelet.conf
+I0123 10:41:20.162480    7715 kubelet.go:198] [kubelet-start] writing CA certificate at /etc/kubernetes/pki/ca.crt
+I0123 10:41:20.162620    7715 kubelet.go:214] [kubelet-start] Checking for an existing Node in the cluster with name "k8s-node" and status "Ready"
+I0123 10:41:20.165832    7715 kubelet.go:229] [kubelet-start] Stopping the kubelet
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Starting the kubelet
+[kubelet-check] Waiting for a healthy kubelet at http://127.0.0.1:10248/healthz. This can take up to 4m0s
+[kubelet-check] The kubelet is healthy after 507.650552ms
+[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap
+I0123 10:41:21.989938    7715 cert_rotation.go:140] Starting client certificate rotation controller
+I0123 10:41:21.989941    7715 kubelet.go:337] [kubelet-start] preserving the crisocket information for the node
+I0123 10:41:21.990578    7715 patchnode.go:31] [patchnode] Uploading the CRI Socket information "unix:///var/run/containerd/containerd.sock" to the Node API object "k8s-node" as an annotation
+
+This node has joined the cluster:
+* Certificate signing request was sent to apiserver and a response was received.
+* The Kubelet was informed of the new secure connection details.
+
+Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
