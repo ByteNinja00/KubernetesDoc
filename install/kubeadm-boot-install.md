@@ -262,3 +262,31 @@ kubectl get nodes
 NAME         STATUS     ROLES           AGE     VERSION
 k8s-master   NotReady   control-plane   8m53s   v1.32.1
 ```
+- 安装calico
+1. 安装 Tigera Calico 操作员和自定义资源定义:
+```
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.29.1/manifests/tigera-operator.yaml
+```
+2. 下载自定义资源清单:
+```
+wget https://raw.githubusercontent.com/projectcalico/calico/v3.29.1/manifests/custom-resources.yaml
+```
+3. 修改Pod网络的CIDR地址:
+```
+cidr: 172.244.10.0/24
+```
+> 在custom-resources.yaml文件当中修改Po网络CIDR地址时一定要和 **[init-config.yaml](/install/yaml/init-config.yaml)** podSubnet: 172.244.10.0/24 相同。
+
+4. 布署calico网络插件：
+```
+kubectl create -f custom-resources.yaml
+```
+> `kubectl get pods -A` 直到所有容器 **running** 状态。
+
+### 5.5. 加入工作节点
+在初始化集群[日志](/install/logs/init-cluster.log)输出当中，有一串: 
+```
+kubeadm join 10.224.2.10:6443 --token 249b5c.d67582bf20149bba \
+	--discovery-token-ca-cert-hash sha256:338a212d82d9388b7cb7f875a3295a187010c41e64e7dfbf2684cf39aecb2737
+```
+默认过期时间为24小时。24小时之后要重新生成token值。
