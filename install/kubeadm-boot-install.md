@@ -284,7 +284,7 @@ kubectl create -f custom-resources.yaml
 > `kubectl get pods -A` 直到所有容器 **running** 状态。
 
 ### 5.5. 加入工作节点
-在初始化集群[日志](/install/logs/init-cluster.log)输出当中，有一串: 
+在初始化集群[日志](/install/logs/init-cluster.log)输出内容中如下一段: 
 ```
 sudo kubeadm join 10.224.2.10:6443 --token 249b5c.d67582bf20149bba \
 	--discovery-token-ca-cert-hash sha256:338a212d82d9388b7cb7f875a3295a187010c41e64e7dfbf2684cf39aecb2737
