@@ -9,13 +9,13 @@ bootstrapTokens:
   - authentication
 kind: InitConfiguration
 localAPIEndpoint:
-  advertiseAddress: 1.2.3.4
+  advertiseAddress: 10.224.2.10
   bindPort: 6443
 nodeRegistration:
   criSocket: unix:///var/run/containerd/containerd.sock
   imagePullPolicy: IfNotPresent
   imagePullSerial: true
-  name: node
+  name: k8s-master
   taints: null
 timeouts:
   controlPlaneComponentHealthCheck: 4m0s
@@ -26,14 +26,15 @@ timeouts:
   tlsBootstrap: 5m0s
   upgradeManifests: 5m0s
 ---
-apiServer: {}
+apiServer: 
+  certSANs:
+    - 10.224.2.10
+    - k8s-master
 apiVersion: kubeadm.k8s.io/v1beta4
 caCertificateValidityPeriod: 87600h0m0s
 certificateValidityPeriod: 8760h0m0s
 certificatesDir: /etc/kubernetes/pki
 clusterName: kubernetes
-controllerManager: {}
-dns: {}
 encryptionAlgorithm: RSA-2048
 etcd:
   local:
@@ -44,5 +45,14 @@ kubernetesVersion: 1.32.0
 networking:
   dnsDomain: cluster.local
   serviceSubnet: 10.96.0.0/12
-proxy: {}
-scheduler: {}
+  podSubnet: 172.244.10.0/24
+
+---
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+cgroupDriver: systemd
+
+---
+apiVersion: kubeproxy.config.k8s.io/v1alpha1
+kind: KubeProxyConfiguration
+mode: ipvs

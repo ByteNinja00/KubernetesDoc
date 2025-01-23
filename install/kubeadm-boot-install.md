@@ -220,3 +220,6 @@ kubeadm config print init-defaults > init-config.yaml
 ```
 ### 5.2. 修改配置文件
 参考：**[init-config.yaml](/install/yaml/init-config.yaml)**
+> **token: abcdef.0123456789abcdef** 这个最好生新一成一个。
+
+### 5.3. 创建集群
