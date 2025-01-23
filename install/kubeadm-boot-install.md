@@ -222,4 +222,11 @@ kubeadm config print init-defaults > init-config.yaml
 参考：**[init-config.yaml](/install/yaml/init-config.yaml)**
 > **token: abcdef.0123456789abcdef** 这个最好生新一成一个。
 
+token的组成形式为：[a-z0-9]{6}\.[a-z0-9]{16}，熟悉正则表达式看字面上应该容易理解：.号分隔之前6位由小写字母和数字组成，之后由16位小写字母和数字组成。
+由以上可以生成令牌token:
+```
+echo $(openssl rand -hex 3).$(openssl rand -hex 8)
+
+# 249b5c.d67582bf20149bba
+```
 ### 5.3. 创建集群
