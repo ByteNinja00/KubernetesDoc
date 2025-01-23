@@ -235,3 +235,11 @@ echo $(openssl rand -hex 3).$(openssl rand -hex 8)
 sudo kubeadm init --config init-config.yaml --v=5
 ```
 参考初始化控制平面集群[日志](/install/logs/init-cluster.log)过程。
+- 为当前用户 **kubectl** 复制与集群通信的配置文件
+```
+mkdir -p $HOME/.kube && sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+- 为root用户**kubectl** 复制与集群通信的配置文件（二选一）
+```
+export KUBECONFIG=/etc/kubernetes/admin.conf
+```
