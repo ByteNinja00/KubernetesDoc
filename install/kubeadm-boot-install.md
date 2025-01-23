@@ -243,3 +243,22 @@ mkdir -p $HOME/.kube && sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 ```
 export KUBECONFIG=/etc/kubernetes/admin.conf
 ```
+### 5.4. 安装网络插件
+在没有布置网络插件的情况下，整个集群都是NotReady状态，coreDNS也是peding状态。
+```
+# 查看集群
+~$ kubectl get pods -A
+NAMESPACE     NAME                                 READY   STATUS    RESTARTS   AGE
+kube-system   coredns-668d6bf9bc-59pq5             0/1     Pending   0          8m39s
+kube-system   coredns-668d6bf9bc-kc4sm             0/1     Pending   0          8m39s
+kube-system   etcd-k8s-master                      1/1     Running   0          8m44s
+kube-system   kube-apiserver-k8s-master            1/1     Running   0          8m44s
+kube-system   kube-controller-manager-k8s-master   1/1     Running   0          8m44s
+kube-system   kube-proxy-vwq7f                     1/1     Running   0          8m39s
+kube-system   kube-scheduler-k8s-master            1/1     Running   0          8m44s
+
+# 查看节点
+kubectl get nodes
+NAME         STATUS     ROLES           AGE     VERSION
+k8s-master   NotReady   control-plane   8m53s   v1.32.1
+```
