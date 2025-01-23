@@ -230,3 +230,8 @@ echo $(openssl rand -hex 3).$(openssl rand -hex 8)
 # 249b5c.d67582bf20149bba
 ```
 ### 5.3. 创建集群
+- **初始化控制平面**
+```
+sudo kubeadm init --config init-config.yaml --v=5
+```
+参考初始化控制平面集群[日志](/install/logs/init-cluster.log)过程。
