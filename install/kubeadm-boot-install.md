@@ -275,7 +275,7 @@ wget https://raw.githubusercontent.com/projectcalico/calico/v3.29.1/manifests/cu
 ```
 cidr: 172.244.10.0/24
 ```
-> 在custom-resources.yaml文件当中修改Po网络CIDR地址时一定要和 **[init-config.yaml](/install/yaml/init-config.yaml)** podSubnet: 172.244.10.0/24 相同。
+> 在custom-resources.yaml文件当中修改Pod网络CIDR地址时一定要和 **[init-config.yaml](/install/yaml/init-config.yaml)** podSubnet: 172.244.10.0/24 相同。
 
 4. 布署calico网络插件：
 ```
