@@ -8,3 +8,5 @@ Kubernetes 现如今己为主流的容器编排工具，作为互联网信息从
 - **[kube-scheduler](/install/yaml/kube-scheduler.yaml)**
 - **[kube-proxy](/install/yaml/kube-proxy.yaml)**
 - **[etcd](/install/yaml/etcd.yaml)**
+
+## [二进制安集群](/install/binary-install.md)
