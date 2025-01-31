@@ -47,3 +47,9 @@ cfssl证书生成工具是CLoudFlare团队github项目，[官方GitHub项目地�
 ```
 export PATH=$PATH:/usr/local/go/bin
 ```
+- 克隆cfssl仓库
+```
+git -c http.proxy=http://192.168.10.4:10808 clone https://github.com/cloudflare/cfssl.git
+```
+> [!NOTE]
+> -c 选项是指定代理服务器，因国内网络有时无法访问GitHub，需要使用网络代理。
