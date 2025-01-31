@@ -41,7 +41,7 @@ cfssl证书生成工具是CLoudFlare团队github项目，[官方GitHub项目地�
 本文以手动编译安装生成二进制可执行文件，进行集群证书的签发。
 - 下载[GO编译](https://go.dev/dl/go1.23.5.linux-amd64.tar.gz)
 ```
- rm -rf /usr/local/go && tar -C /usr/local -xzf go1.23.5.linux-amd64.tar.gz
+ sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.23.5.linux-amd64.tar.gz
 ```
 - 增加环境变量
 ```
