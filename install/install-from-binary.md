@@ -50,12 +50,12 @@ network:
     ethernets:
         ens33:
             dhcp4: false
-            addresses: [10.224.2.10/24]
+            addresses: [192.168.13.10/24]
             routes:
               - to: default
-                via: 10.224.2.2
+                via: 192.168.13.2
             nameservers:
-              addresses: [10.224.2.2,223.5.5.5]
+              addresses: [192.168.13.2,223.5.5.5]
     version: 2
 ```
 > [!NOTE]
