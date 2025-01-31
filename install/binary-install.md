@@ -34,22 +34,30 @@ Kubernetes集群组件通信使用TLS证书通信加密，TLS在TCP/IP协议的�
 ### 5.1. cfssl证书生成工具
 cfssl证书生成工具是CLoudFlare团队github项目，[官方GitHub项目地址](https://github.com/cloudflare/cfssl)。
 
-两种方式获取：
+**两种方式获取：**
 1. 从[官方GitHub仓库下载预发布的二进制文件](https://github.com/cloudflare/cfssl/releases)。
 2. 从源代码手动编译安装。
 
 本文以手动编译安装生成二进制可执行文件，进行集群证书的签发。
-- 下载[GO编译](https://go.dev/dl/go1.23.5.linux-amd64.tar.gz)
+
+- **下载[GO编译](https://go.dev/dl/go1.23.5.linux-amd64.tar.gz)**
 ```
  sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.23.5.linux-amd64.tar.gz
 ```
-- 增加环境变量
+- **增加环境变量**
 ```
 export PATH=$PATH:/usr/local/go/bin
 ```
-- 克隆cfssl仓库
+- **克隆cfssl仓库**
 ```
 git -c http.proxy=http://192.168.10.4:10808 clone https://github.com/cloudflare/cfssl.git
 ```
 > [!NOTE]
 > -c 选项是指定代理服务器，因国内网络有时无法访问GitHub，需要使用网络代理。
+
+- **编译安装**
+```
+cd cfssl && make
+```
+> [!TIP]
+> 编译时需要安装**make**：` sudo apt-get -y install make`
