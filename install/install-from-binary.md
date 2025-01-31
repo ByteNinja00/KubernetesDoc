@@ -14,3 +14,49 @@
 ```
 ip addr show
 ```
+### 2.2. 检查主机UUID
+> [!IMPORTANT]
+> 同样如此如果是因为复制虚拟机配置文件克隆出来的主机UUID也会重复。
+```
+sudo cat /sys/class/dmi/id/product_uuid
+```
+### 2.3. 关闭交换分区
+虽然官方允计使用交换分区，但是交换分区是把磁盘存储的一部份空间，当作内存空间交换。CPU在进行数据访问时性能肯定大大下降，所以最好关闭。
+- **查看是否己挂载SWAP分区**
+```
+sudo swapon --show
+```
+- **临时关闭**
+```
+sudo swapoff -a
+```
+- **注释分区表己挂载的SWAP分区**
+```
+#/swap.img none swap sw 0 0
+```
+### 2.4 设置主机名
+- **控制平面主机**
+```
+sudo hostnamectl set-hostname k8s-master
+```
+- **工作节点主机**
+```
+sudo hostnamectl set-hostname k8s-node
+```
+### 2.5. 设置网络IP地址
+配置文件地址: `/etc/netplan/50-cloud-init.yaml`
+```
+network:
+    ethernets:
+        ens33:
+            dhcp4: false
+            addresses: [10.224.2.10/24]
+            routes:
+              - to: default
+                via: 10.224.2.2
+            nameservers:
+              addresses: [10.224.2.2,223.5.5.5]
+    version: 2
+```
+> [!NOTE]
+> 以上配置为k8s-master主机IP，不同控制平面主机设置相应网络IP地址。
