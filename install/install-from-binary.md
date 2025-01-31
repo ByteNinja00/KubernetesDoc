@@ -60,3 +60,4 @@ network:
 ```
 > [!NOTE]
 > 以上配置为k8s-master主机IP，不同控制平面主机设置相应网络IP地址。
+> 设置完之后需要更新配置文件：`sudo netplan apply`
