@@ -7,3 +7,5 @@
 - [kube-controller-manager静态Pod清单](/install/yaml/kube-controller-manager.yaml)
 - [kube-scheduler静态Pod清单](/install/yaml/kube-scheduler.yaml)
 - [kube-proxy静态Pod清单](/install/yaml/kube-proxy.yaml)
+
+**[二进制文件安装Kubernetes集群](/install/binary-install.md)**
