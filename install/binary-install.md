@@ -61,3 +61,4 @@ cd cfssl && make && sudo install bin/* /usr/local/bin/
 ```
 > [!TIP]
 > 编译时需要安装**make**：` sudo apt-get -y install make`
+### 5.2. 生成ETCD证书
