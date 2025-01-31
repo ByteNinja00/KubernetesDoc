@@ -14,7 +14,7 @@
 
 关于集群主机内核调优的sysctl参数，取决于具体恰当与否，官网 **[关于systctl参数说明](https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/sysctl-cluster/)**。
 
-### 2.1. 检查MAC集群主机MAC地址
+### 2.1. 检查集群主机MAC地址
 如果是用的虚拟机克隆出来的主机，有可能会有MAC地址重复，如：KVM虚拟机配置文件复制进行克隆的就会发生这种情况。
 ```
 ip addr show
