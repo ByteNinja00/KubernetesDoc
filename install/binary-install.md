@@ -57,7 +57,7 @@ git -c http.proxy=http://192.168.10.4:10808 clone https://github.com/cloudflare/
 
 - **编译安装**
 ```
-cd cfssl && make
+cd cfssl && make && sudo install bin/* /usr/local/bin/
 ```
 > [!TIP]
 > 编译时需要安装**make**：` sudo apt-get -y install make`
